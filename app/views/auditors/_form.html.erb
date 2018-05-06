@@ -1,0 +1,37 @@
+<%= form_with(model: auditor, local: true) do |form| %>
+  <% if auditor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(auditor.errors.count, "error") %> prohibited this auditor from being saved:</h2>
+
+      <ul>
+      <% auditor.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :number %>
+    <%= form.text_area :number, id: :auditor_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_area :name, id: :auditor_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bitrthday %>
+    <%= form.date_select :bitrthday, id: :auditor_bitrthday %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone %>
+    <%= form.text_area :phone, id: :auditor_phone %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

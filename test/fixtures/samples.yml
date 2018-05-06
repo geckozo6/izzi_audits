@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  delivery_folio: MyText
+  item: MyText
+  provider: MyText
+  business_name: MyText
+  aql: one
+  lot_size: MyText
+  equipment: one
+  auditor: one
+
+two:
+  delivery_folio: MyText
+  item: MyText
+  provider: MyText
+  business_name: MyText
+  aql: two
+  lot_size: MyText
+  equipment: two
+  auditor: two

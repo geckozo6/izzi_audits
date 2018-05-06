@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  letter_code: MyString
+  aql: 1.5
+  batch_size: MyText
+  fisrt_sample: 1
+  first_rejection: 1
+  second_Sample: 1
+  second_rejection: 1
+
+two:
+  letter_code: MyString
+  aql: 1.5
+  batch_size: MyText
+  fisrt_sample: 1
+  first_rejection: 1
+  second_Sample: 1
+  second_rejection: 1

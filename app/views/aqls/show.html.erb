@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Letter code:</strong>
+  <%= @aql.letter_code %>
+</p>
+
+<p>
+  <strong>Aql:</strong>
+  <%= @aql.aql %>
+</p>
+
+<p>
+  <strong>Batch size:</strong>
+  <%= @aql.batch_size %>
+</p>
+
+<p>
+  <strong>Fisrt sample:</strong>
+  <%= @aql.fisrt_sample %>
+</p>
+
+<p>
+  <strong>First rejection:</strong>
+  <%= @aql.first_rejection %>
+</p>
+
+<p>
+  <strong>Second sample:</strong>
+  <%= @aql.second_Sample %>
+</p>
+
+<p>
+  <strong>Second rejection:</strong>
+  <%= @aql.second_rejection %>
+</p>
+
+<%= link_to 'Edit', edit_aql_path(@aql) %> |
+<%= link_to 'Back', aqls_path %>

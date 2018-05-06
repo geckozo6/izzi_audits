@@ -1,0 +1,52 @@
+<%= form_with(model: aql, local: true) do |form| %>
+  <% if aql.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(aql.errors.count, "error") %> prohibited this aql from being saved:</h2>
+
+      <ul>
+      <% aql.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :letter_code %>
+    <%= form.text_field :letter_code, id: :aql_letter_code %>
+  </div>
+
+  <div class="field">
+    <%= form.label :aql %>
+    <%= form.text_field :aql, id: :aql_aql %>
+  </div>
+
+  <div class="field">
+    <%= form.label :batch_size %>
+    <%= form.text_area :batch_size, id: :aql_batch_size %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fisrt_sample %>
+    <%= form.number_field :fisrt_sample, id: :aql_fisrt_sample %>
+  </div>
+
+  <div class="field">
+    <%= form.label :first_rejection %>
+    <%= form.number_field :first_rejection, id: :aql_first_rejection %>
+  </div>
+
+  <div class="field">
+    <%= form.label :second_Sample %>
+    <%= form.number_field :second_Sample, id: :aql_second_Sample %>
+  </div>
+
+  <div class="field">
+    <%= form.label :second_rejection %>
+    <%= form.number_field :second_rejection, id: :aql_second_rejection %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

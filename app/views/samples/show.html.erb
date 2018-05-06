@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Delivery folio:</strong>
+  <%= @sample.delivery_folio %>
+</p>
+
+<p>
+  <strong>Item:</strong>
+  <%= @sample.item %>
+</p>
+
+<p>
+  <strong>Provider:</strong>
+  <%= @sample.provider %>
+</p>
+
+<p>
+  <strong>Business name:</strong>
+  <%= @sample.business_name %>
+</p>
+
+<p>
+  <strong>Aql:</strong>
+  <%= @sample.aql %>
+</p>
+
+<p>
+  <strong>Lot size:</strong>
+  <%= @sample.lot_size %>
+</p>
+
+<p>
+  <strong>Equipment:</strong>
+  <%= @sample.equipment %>
+</p>
+
+<p>
+  <strong>Auditor:</strong>
+  <%= @sample.auditor %>
+</p>
+
+<%= link_to 'Edit', edit_sample_path(@sample) %> |
+<%= link_to 'Back', samples_path %>

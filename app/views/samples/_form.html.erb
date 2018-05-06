@@ -1,0 +1,57 @@
+<%= form_with(model: sample, local: true) do |form| %>
+  <% if sample.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(sample.errors.count, "error") %> prohibited this sample from being saved:</h2>
+
+      <ul>
+      <% sample.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :delivery_folio %>
+    <%= form.text_area :delivery_folio, id: :sample_delivery_folio %>
+  </div>
+
+  <div class="field">
+    <%= form.label :item %>
+    <%= form.text_area :item, id: :sample_item %>
+  </div>
+
+  <div class="field">
+    <%= form.label :provider %>
+    <%= form.text_area :provider, id: :sample_provider %>
+  </div>
+
+  <div class="field">
+    <%= form.label :business_name %>
+    <%= form.text_area :business_name, id: :sample_business_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :aql_id %>
+    <%= form.text_field :aql_id, id: :sample_aql_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :lot_size %>
+    <%= form.text_area :lot_size, id: :sample_lot_size %>
+  </div>
+
+  <div class="field">
+    <%= form.label :equipment_id %>
+    <%= form.text_field :equipment_id, id: :sample_equipment_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :auditor_id %>
+    <%= form.text_field :auditor_id, id: :sample_auditor_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

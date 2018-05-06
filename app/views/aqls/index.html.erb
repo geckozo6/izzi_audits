@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Aqls</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Letter code</th>
+      <th>Aql</th>
+      <th>Batch size</th>
+      <th>Fisrt sample</th>
+      <th>First rejection</th>
+      <th>Second sample</th>
+      <th>Second rejection</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @aqls.each do |aql| %>
+      <tr>
+        <td><%= aql.letter_code %></td>
+        <td><%= aql.aql %></td>
+        <td><%= aql.batch_size %></td>
+        <td><%= aql.fisrt_sample %></td>
+        <td><%= aql.first_rejection %></td>
+        <td><%= aql.second_Sample %></td>
+        <td><%= aql.second_rejection %></td>
+        <td><%= link_to 'Show', aql %></td>
+        <td><%= link_to 'Edit', edit_aql_path(aql) %></td>
+        <td><%= link_to 'Destroy', aql, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Aql', new_aql_path %>

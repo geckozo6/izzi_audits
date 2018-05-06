@@ -44,7 +44,8 @@
 					<th>AQL</th>
 					<th>Tam. Lote</th>
 					<th># Piezas</th>
-					<th>Equipment</th>
+					<th>Modelo Equipo</th>
+					<th>Auditor</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
@@ -62,21 +63,17 @@
         				<td><%= sample.business_name %></td>
         				<td><%= sample.aql.aql %></td>
         				<td><%= sample.lot_size %></td>
-        				<td><%= sample.equipment.equipment_type %></td>
+        				<td><%= sample.equipment.model %></td>
         				<td><%= sample.auditor.name %></td>
-
-					   <td><%= sample.pieces.length %></td>
-					   <td><%= sample.pieces.rejected.length %></td>
+					    <td><%= sample.pieces.length %></td>
+					    <td><%= sample.pieces.rejected.length %></td>
    						<td>
-							
 							<%= link_to '<i class="entypo-pencil"></i>Editar'.html_safe, edit_sample_path(sample), 
 								class: "btn btn-default btn-sm btn-icon icon-left"  %>
-							
 							<%= link_to '<i class="entypo-cancel"></i>Borrar'.html_safe, sample, 
 								class: "btn btn-danger btn-sm btn-icon icon-left", 
 								method: :delete, 
 								data: { confirm: '¿Desea eliminar este registro?' } %>
-
    						</td>
 			         </tr>
 			  <% end %>

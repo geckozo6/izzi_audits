@@ -48,9 +48,13 @@
 			minimumResultsForSearch: Infinity
 		});
 
-		$("#equipment-select").select2();
+		$("#aql-select").select2();
 		
 		$("#auditor-select").select2({
+			minimumResultsForSearch: Infinity
+		});
+
+		$("#equipment-select").select2({
 			minimumResultsForSearch: Infinity
 		});
 		
@@ -164,7 +168,7 @@
   <div class="form-group">
     <label for="field-1" class="col-sm-2 control-label form-field">AQL / Tamaño del Lote</label>
   	<div class="col-sm-4">
-		  <%= form.collection_select(:aql_id, Aql.all, :id, :aql_lot, {}, {id: "equipment-select"} ) %>
+		  <%= form.collection_select(:aql_id, Aql.all, :id, :aql_lot, {}, {id: "aql-select"} ) %>
   	</div>
   </div>
 					

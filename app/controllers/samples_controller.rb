@@ -5,7 +5,7 @@ class SamplesController < ApplicationController
   # GET /samples.json
   def index
     #@samples = Sample.all
-		@samples = Sample.includes(:equipment, :auditor, :pieces).order(created_at: :desc).take(25)
+		@samples = Sample.includes(:equipment, :auditor, :pieces, :aqls).order(created_at: :desc).take(25)
   end
 
   # GET /samples/1

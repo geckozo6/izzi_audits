@@ -17,10 +17,10 @@
 							<input type="checkbox" id="chk-1">
 						</div>
 					</th>
-          <th>Number</th>
-          <th>Name</th>
-          <th>Bitrthday</th>
-          <th>Phone</th>
+          			<th>No. Empleado</th>
+          			<th>Nombre</th>
+          			<th>Cumpleaños</th>
+          			<th>Teléfono</th>
 					<th>Acciones</th>
 				</tr>
 			</thead>
@@ -33,23 +33,19 @@
 	 							<input type="checkbox" id="chk-1">
 	 						</div>
 	 					</td>
-			      <td><%= auditor.number %></td>
-            <td><%= auditor.name %></td>
-            <td><%= auditor.bitrthday %></td>
-            <td><%= auditor.phone %></td>
+			      		<td><%= auditor.number %></td>
+            			<td><%= auditor.name %></td>
+            			<td><%= auditor.bitrthday %></td>
+            			<td><%= auditor.phone %></td>
    						<td>
-							
 							<%= link_to '<i class="entypo-pencil"></i>Editar'.html_safe, edit_auditor_path(auditor), 
 								class: "btn btn-default btn-sm btn-icon icon-left"  %>
-							
 							<%= link_to '<i class="entypo-cancel"></i>Borrar'.html_safe, auditor, 
 								class: "btn btn-danger btn-sm btn-icon icon-left", 
 								method: :delete, 
 								data: { confirm: 'Are you sure?' } %>
-										
 							<%= link_to '<i class="entypo-info"></i>Ver'.html_safe, auditor, 
-								class: "btn btn-info btn-sm btn-icon icon-left"  %>
-																		
+								class: "btn btn-info btn-sm btn-icon icon-left"  %>	
    						</td>
 			         </tr>
 			  <% end %>

@@ -11,47 +11,206 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :delivery_folio %>
-    <%= form.text_area :delivery_folio, id: :sample_delivery_folio %>
+  <%= javascript_include_tag 'bootstrap-datepicker' %>						
+  <script type="text/javascript">
+		jQuery( window ).load( function() {
+			// Element Attribute Helper
+			function attrDefault($el, data_var, default_val) {
+		    	if(typeof $el.data(data_var) != 'undefined') {
+		      		return $el.data(data_var);
+					} return default_val;
+		  		}
+			// Select2 Dropdown replacement
+			if($.isFunction($.fn.select2)) {
+				$(".select2").each(function(i, el) {
+					var $this = $(el),
+					opts = {
+					allowClear: attrDefault($this, 'allowClear', false)
+				};
+
+				$this.select2(opts);
+				$this.addClass('visible');
+
+				//$this.select2("open");
+		});
+
+
+		if($.isFunction($.fn.niceScroll))
+		{
+			$(".select2-results").niceScroll({
+				cursorcolor: '#d4d4d4',
+				cursorborder: '1px solid #ccc',
+				railpadding: {right: 3}
+			});
+		}
+	}
+		$("#muestreo").select2({
+			minimumResultsForSearch: Infinity
+		});
+
+		$("#equipment-select").select2();
+		
+		$("#auditor-select").select2({
+			minimumResultsForSearch: Infinity
+		});
+		
+		$(".datepicker").datepicker("update", new Date());	
+	
+	
+	
+	// Added on v1.1.4
+	$(".input-spinner").each(function(i, el)
+	{
+		var $this = $(el),
+			$minus = $this.find('button:first'),
+			$plus = $this.find('button:last'),
+			$input = $this.find('input'),
+
+			minus_step = attrDefault($minus, 'step', -0.5),
+			plus_step = attrDefault($minus, 'step', 0.5),
+
+			min = attrDefault($input, 'min', null),
+			max = attrDefault($input, 'max', null);
+
+
+		$this.find('button').on('click', function(ev)
+		{
+			ev.preventDefault();
+
+			var $this = $(this),
+				val = $input.val(),
+				step = attrDefault($this, 'step', $this[0] == $minus[0] ? -0.5 : 0.5);
+
+			if( ! step.toString().match(/^[0-9-\.]+$/))
+			{
+				step = $this[0] == $minus[0] ? -0.5 : 0.5;
+			}
+
+			if( ! val.toString().match(/^[0-9-\.]+$/))
+			{
+				val = 0;
+			}
+
+			$input.val( parseFloat(val) + step ).trigger('keyup');
+		});
+
+		$input.keyup(function()
+		{
+			if(min != null && parseFloat($input.val()) < min)
+			{
+				$input.val(min);
+			}
+			else
+
+			if(max != null && parseFloat($input.val()) > max)
+			{
+				$input.val(max);
+			}
+		});
+
+	});
+	
+});
+  </script>
+
+<form role="form" class="form-horizontal form-groups-bordered">
+  
+  <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Folio de Liberación</label>
+  	<div class="col-sm-4">
+		  <%= form.text_field :delivery_folio, id: :sample_delivery_folio, class: 'form-control input-lg' %>
+  	</div>
+  </div>
+  
+  <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Item</label>
+  	<div class="col-sm-4">
+		  <%= form.text_field :item, id: :sample_item, class: 'form-control input-lg' %>
+  	</div>
   </div>
 
-  <div class="field">
-    <%= form.label :item %>
-    <%= form.text_area :item, id: :sample_item %>
+  <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Proveedor</label>
+  	<div class="col-sm-4">
+		  <%= form.text_field :provider, id: :sample_provider, class: 'form-control input-lg' %>
+  	</div>
   </div>
 
-  <div class="field">
-    <%= form.label :provider %>
-    <%= form.text_area :provider, id: :sample_provider %>
+  <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Razón Social</label>
+  	<div class="col-sm-4">
+		  <%= form.text_field :business_name, id: :sample_business_name, class: 'form-control input-lg' %>
+  	</div>
   </div>
 
-  <div class="field">
-    <%= form.label :business_name %>
-    <%= form.text_area :business_name, id: :sample_business_name %>
+  <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Tipo de Muestreo</label>					
+    <div class="col-sm-4">
+  	  <%=form.select :sample_type, [ ['Muestreo Simple', 'Simple'], ['Doble Sampleo', 'Doble'] ], {}, {id: "muestreo"} %>
+  	</div>
+  </div>
+					
+  <!--div class="form-group">
+	  <label for="field-1" class="col-sm-2 control-label form-field">AQL</label>				
+  	<div class="col-sm-4">
+		  <div class="input-spinner">
+			  <button type="button" class="btn btn-success btn-sm">-</button>
+				<%= form.text_field :aql, id: :sample_aql, class: 'form-control size-1 input-sm', value: "1.5", :data => {:min => '1', :max => '3' } %>
+				  <button type="button" class="btn btn-success btn-sm">+</button>
+			</div>
+  	</div>
+  </div>-->
+
+  <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">AQL / Tamaño del Lote</label>
+  	<div class="col-sm-4">
+		  <%= form.collection_select(:aql_id, Aql.all, :id, :aql_lot, {}, {id: "equipment-select"} ) %>
+  	</div>
+  </div>
+					
+  <!--div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Fecha</label>
+  	<div class="col-sm-4">
+		  <div class="input-group">
+			  <%= form.text_field :sampledate, id: :sample_sampledate, class: 'form-control datepicker', "data-date-format" => 'yyyy-mm-dd' %>
+				<div class="input-group-addon">
+				  <a href="#"><i class="entypo-calendar"></i></a>
+				</div>
+			</div>
+  	</div>
+  </div>-->
+					
+  <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Lote</label>
+  	<div class="col-sm-4">
+		  <%= form.text_field :lot_size, id: :sample_lot_size, class: 'form-control input-lg' %>
+  	</div>
+  </div>
+									
+  <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Modelo de Equipo</label>
+  	<div class="col-sm-4">
+		  <%= form.collection_select(:equipment_id, Equipment.all, :id, :model, {}, {id: "equipment-select"} ) %>
+  	</div>
+  </div>
+					
+  <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Auditor</label>
+  	<div class="col-sm-4">
+		  <%= form.collection_select(:auditor_id, Auditor.all, :id, :name, {}, {id: "auditor-select"}) %>
+  	</div>
+  </div>
+					
+  <div class="post-save-changes">
+	  <div class="col-sm-offset-2 col-sm-2 actions update-button">
+		  <%= button_tag(type: "submit", class: "btn btn-green btn-lg btn-block btn-icon") do %>
+			  <i class='entypo-check'></i>Enviar
+			<% end %>
+			<%# form.submit %>
+  	</div>
   </div>
 
-  <div class="field">
-    <%= form.label :aql_id %>
-    <%= form.text_field :aql_id, id: :sample_aql_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :lot_size %>
-    <%= form.text_area :lot_size, id: :sample_lot_size %>
-  </div>
-
-  <div class="field">
-    <%= form.label :equipment_id %>
-    <%= form.text_field :equipment_id, id: :sample_equipment_id %>
-  </div>
-
-  <div class="field">
-    <%= form.label :auditor_id %>
-    <%= form.text_field :auditor_id, id: :sample_auditor_id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+</form>
+    <%# form.text_field :equipment_id, id: :sample_equipment_id %>
+    <%# form.text_field :auditor_id, id: :sample_auditor_id %>
 <% end %>

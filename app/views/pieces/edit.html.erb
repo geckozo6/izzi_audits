@@ -1,6 +1,12 @@
-<h1>Editing Piece</h1>
-
+<div class="row">
+	<div class="col-sm-3">
+		<h1 class="page-title">Editar Pieza</h1>
+	</div>
+	<div class="col-sm-1">
+		<%= link_to '<i class="entypo-back"></i>Atras'.html_safe, pieces_path, class: 'btn btn-blue btn-icon' %>
+	</div>
+    <div class="col-sm-1">
+		<%= link_to '<i class="entypo-back"></i>Ver'.html_safe, @piece, class: 'btn btn-blue btn-icon' %>
+	</div>
+</div>
 <%= render 'form', piece: @piece %>
-
-<%= link_to 'Show', @piece %> |
-<%= link_to 'Back', pieces_path %>

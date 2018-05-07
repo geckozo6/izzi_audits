@@ -1,32 +1,152 @@
 <%= form_with(model: equipment, local: true) do |form| %>
   <% if equipment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(equipment.errors.count, "error") %> prohibited this equipment from being saved:</h2>
-
-      <ul>
+  <div class="alert alert-danger">
+    <strong><%= pluralize(equipment.errors.count, "error") %></strong> 
+    prohibited this piece from being saved:
+  </div>
       <% equipment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <%# message %>
       <% end %>
-      </ul>
-    </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :equipment_type %>
-    <%= form.text_area :equipment_type, id: :equipment_equipment_type %>
+<%= javascript_include_tag	'bootstrap-switch.min' %>
+<script type="text/javascript">
+  jQuery( window ).load( function() {
+
+
+   var opts = {
+			"closeButton": true,
+			"debug": false,
+			"positionClass": "toast-top-full-width",
+			"onclick": null,
+			"showDuration": "800",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		};
+
+    var opts2 = {
+			"closeButton": true,
+			"debug": false,
+			"positionClass": "toast-top-full-width",
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		};
+		
+		//toastr.success("So me by marianne admitted speaking.", "This is a title", opts2);
+
+    // Element Attribute Helper
+			function attrDefault($el, data_var, default_val) {
+		    	if(typeof $el.data(data_var) != 'undefined') {
+		      		return $el.data(data_var);
+					} return default_val;
+		  		}
+			// Select2 Dropdown replacement
+			if($.isFunction($.fn.select2)) {
+				$(".select2").each(function(i, el) {
+					var $this = $(el),
+					opts = {
+					allowClear: attrDefault($this, 'allowClear', false)
+				};
+
+				$this.select2(opts);
+				$this.addClass('visible');
+
+				//$this.select2("open");
+		});
+
+
+		if($.isFunction($.fn.niceScroll))
+		{
+			$(".select2-results").niceScroll({
+				cursorcolor: '#d4d4d4',
+				cursorborder: '1px solid #ccc',
+				railpadding: {right: 3}
+			});
+		}
+	}
+
+  $("#service").select2();
+  $("#vendor").select2();
+
+  // Radio Toggle
+		if($.isFunction($.fn.bootstrapSwitch))
+		{
+
+			$('.make-switch.is-radio').on('switch-change', function () {
+		        $('.make-switch.is-radio').bootstrapSwitch('toggleRadioState');
+		    });
+		}
+    $('.make-switch').bootstrapSwitch('setOnClass', 'success');
+    $('.make-switch').bootstrapSwitch('setOffClass', 'danger');
+    
+   
+
+ <% if equipment.errors.any? %>
+      //toastr.error('<%= pluralize(piece.errors.count, "error") %>', 'Error al Guardar');
+      <% equipment.errors.full_messages.each do |message| %>
+        toastr.error("<%= message %>");
+      <% end %>
+  <% end %>
+
+		
+  });
+</script>
+
+<form role="form" class="form-horizontal form-groups-bordered">
+
+  <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Tipo de Equipo</label>				
+  	<div class="col-sm-4">
+      <%= form.text_field :equipment_type, id: :equipment_equipment_type, class: 'form-control input-lg' %>
+  	</div>
   </div>
 
-  <div class="field">
-    <%= form.label :vendor %>
-    <%= form.text_area :vendor, id: :equipment_vendor %>
+  <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Marca</label>
+		<div class="col-sm-4">
+      <%= form.select :vendor, [ 
+        ['Motorola', 'Motorola'], 
+        ['Arris', 'Arris'], 
+        ['Evolution', 'Evolution'],
+        ['Ubee', 'Ubee'],
+        ['Hitron', 'Hitron'],
+        ['Cisco', 'Cisco'],
+        ['Technicolor', 'Technicolor'],
+        ['Pace', 'Pace'],
+       ], {}, {id: "vendor"} %>
+  	</div>
   </div>
 
-  <div class="field">
-    <%= form.label :service %>
-    <%= form.text_area :service, id: :equipment_service %>
+    <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Servicio</label>
+		<div class="col-sm-4">
+      <%= form.select :service, [ 
+        ['Video', 'Video'], 
+        ['Internet', 'Internet'], 
+        ['Telefonia', 'Telefonia'],
+       ], {}, {id: "service"} %>
+  	</div>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="post-save-changes">
+    <div class="col-sm-offset-2 col-sm-2 actions update-button">
+      <%= button_tag(type: "submit", class: "btn btn-green btn-lg btn-block btn-icon") do %>
+			  <i class='entypo-check'></i>Enviar <%# form.submit %>
+			<% end %>
+  	</div>
   </div>
+
+  </form>		
 <% end %>

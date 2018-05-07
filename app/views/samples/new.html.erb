@@ -1,5 +1,10 @@
-<h1>New Sample</h1>
+<div class="row">
+	<div class="col-sm-3">
+		<h1 class="page-title">Nuevo Muestreo</h1>
+	</div>
+	<div class="col-sm-4">
+		<%= link_to '<i class="entypo-back"></i>Atras'.html_safe, samples_path, class: 'btn btn-blue btn-icon' %>
+	</div>
+</div>
 
 <%= render 'form', sample: @sample %>
-
-<%= link_to 'Back', samples_path %>

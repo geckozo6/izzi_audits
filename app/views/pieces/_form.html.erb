@@ -1,47 +1,168 @@
 <%= form_with(model: piece, local: true) do |form| %>
   <% if piece.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(piece.errors.count, "error") %> prohibited this piece from being saved:</h2>
-
-      <ul>
+  <div class="alert alert-danger">
+    <strong><%= pluralize(piece.errors.count, "error") %></strong> 
+    prohibited this piece from being saved:
+  </div>
       <% piece.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <%# message %>
       <% end %>
-      </ul>
-    </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :serie %>
-    <%= form.text_area :serie, id: :piece_serie %>
+<%= javascript_include_tag	'bootstrap-switch.min' %>
+<script type="text/javascript">
+  jQuery( window ).load( function() {
+
+
+   var opts = {
+			"closeButton": true,
+			"debug": false,
+			"positionClass": "toast-top-full-width",
+			"onclick": null,
+			"showDuration": "800",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		};
+
+    var opts2 = {
+			"closeButton": true,
+			"debug": false,
+			"positionClass": "toast-top-full-width",
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		};
+		
+		//toastr.success("So me by marianne admitted speaking.", "This is a title", opts2);
+
+    // Element Attribute Helper
+			function attrDefault($el, data_var, default_val) {
+		    	if(typeof $el.data(data_var) != 'undefined') {
+		      		return $el.data(data_var);
+					} return default_val;
+		  		}
+			// Select2 Dropdown replacement
+			if($.isFunction($.fn.select2)) {
+				$(".select2").each(function(i, el) {
+					var $this = $(el),
+					opts = {
+					allowClear: attrDefault($this, 'allowClear', false)
+				};
+
+				$this.select2(opts);
+				$this.addClass('visible');
+
+				//$this.select2("open");
+		});
+
+
+		if($.isFunction($.fn.niceScroll))
+		{
+			$(".select2-results").niceScroll({
+				cursorcolor: '#d4d4d4',
+				cursorborder: '1px solid #ccc',
+				railpadding: {right: 3}
+			});
+		}
+	}
+
+  $("#failure").select2();
+  $("#sample-select").select2();
+
+  // Radio Toggle
+		if($.isFunction($.fn.bootstrapSwitch))
+		{
+
+			$('.make-switch.is-radio').on('switch-change', function () {
+		        $('.make-switch.is-radio').bootstrapSwitch('toggleRadioState');
+		    });
+		}
+    $('.make-switch').bootstrapSwitch('setOnClass', 'success');
+    $('.make-switch').bootstrapSwitch('setOffClass', 'danger');
+    
+   
+
+ <% if piece.errors.any? %>
+      //toastr.error('<%= pluralize(piece.errors.count, "error") %>', 'Error al Guardar');
+      <% piece.errors.full_messages.each do |message| %>
+        toastr.error("<%= message %>");
+      <% end %>
+  <% end %>
+
+		
+  });
+</script>
+
+<form role="form" class="form-horizontal form-groups-bordered">
+  <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Serie</label>				
+  	<div class="col-sm-4">
+      <%= form.text_field :serie, id: :piece_serie, class: 'form-control input-lg' %>
+  	</div>
   </div>
 
-  <div class="field">
-    <%= form.label :cmac %>
-    <%= form.text_area :cmac, id: :piece_cmac %>
+  <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Mac address del CableModem</label>				
+  	<div class="col-sm-4">
+      <%= form.text_field :cmac, id: :piece_cmac, class: 'form-control input-lg' %>
+  	</div>
   </div>
 
-  <div class="field">
-    <%= form.label :emac %>
-    <%= form.text_area :emac, id: :piece_emac %>
+  <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Mac address del eMTA</label>				
+  	<div class="col-sm-4">
+      <%= form.text_field :emac, id: :piece_emac, class: 'form-control input-lg' %>
+  	</div>
+   </div>
+
+  <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Resultado de la Prueba</label>				
+  	<div class="col-sm-1">
+      <div class="make-switch" data-on-label="<i class='entypo-check'></i>" data-off-label="<i class='entypo-cancel'></i>">
+        <%= form.check_box :status, id: :piece_status  %>
+      </div>
+  	</div>
   </div>
 
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.check_box :status, id: :piece_status %>
+  <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Tipo de Falla</label>
+		<div class="col-sm-4">
+      <%= form.select :failure, [ 
+        ['Minguno', 'Ninguno'], 
+        ['Firmware', 'Firmware'], 
+        ['Etiquetado', 'Etiquetado'],
+        ['Inconsistencia Serie/Mac', 'Inconsistencia'],
+        ['Funcional', 'Funcional'],
+        ['Cosmetica', 'Cosmetica'],
+       ], {}, {id: "failure"} %>
+  	</div>
   </div>
 
-  <div class="field">
-    <%= form.label :failure %>
-    <%= form.text_area :failure, id: :piece_failure %>
+  <div class="form-group">
+    <label for="field-1" class="col-sm-2 control-label form-field">Muestreo Asociado</label>				
+  	<div class="col-sm-4">
+  		<%= form.collection_select(:sample_id, Sample.order(created_at: :desc).take(4), :id, :lot, {}, {id: "sample-select"} ) %>
+  	</div>
   </div>
 
-  <div class="field">
-    <%= form.label :sample_id %>
-    <%= form.text_field :sample_id, id: :piece_sample_id %>
+  <div class="post-save-changes">
+    <div class="col-sm-offset-2 col-sm-2 actions update-button">
+      <%= button_tag(type: "submit", class: "btn btn-green btn-lg btn-block btn-icon") do %>
+			  <i class='entypo-check'></i>Enviar
+			<% end %>
+  	</div>
   </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+	
+</form>		
 <% end %>

@@ -2,7 +2,6 @@
   <% if auditor.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(auditor.errors.count, "error") %> prohibited this auditor from being saved:</h2>
-
       <ul>
       <% auditor.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -10,28 +9,71 @@
       </ul>
     </div>
   <% end %>
+  
+  <br />
 
-  <div class="field">
-    <%= form.label :number %>
-    <%= form.text_area :number, id: :auditor_number %>
-  </div>
+  <div class="row">
+  	<div class="col-md-12">	
+  		<div class="panel panel-primary" data-collapsed="0">
+  			<div class="panel-heading">
+  				<div class="panel-title">
+  					Default Form Inputs
+  				</div>
+  				<div class="panel-options">
+  					<a id="algo" href="#sample-modal" data-toggle="modal" data-target="#sample-modal-dialog-1" class="bg"><i class="entypo-cog"></i></a>
+  					<a href="#" data-rel="collapse"><i class="entypo-down-open"></i></a>
+  					<a href="#" data-rel="reload"><i class="entypo-arrows-ccw"></i></a>
+  					<a href="#" data-rel="close"><i class="entypo-cancel"></i></a>
+  				</div>
+  			</div>
+			
+  			<div class="panel-body">
+  				<form role="form" class="form-horizontal form-groups-bordered">
 
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_area :name, id: :auditor_name %>
-  </div>
+            <div class="form-group">
+  					  <label for="field-1" class="col-sm-2 control-label">No. Empleado</label>
+  						<div class="col-sm-4">
+  						  <%= form.text_field :number, id: :auditor_number, class: 'form-control input-lg', id: 'field-1', placeholder: 'No. Empleado' %>
+  						</div>
+  					</div>
+  					
+            <div class="form-group">
+  					  <label for="field-1" class="col-sm-2 control-label">Nombre del Auditor</label>
+  						<div class="col-sm-4">
+  						  <%= form.text_field :name, id: :auditor_name, class: 'form-control input-lg', id: 'field-1', placeholder: 'Nombre del Auditor' %>
+  						</div>
+  					</div>
+					
+  					<div class="form-group">
+  						<label for="field-1" class="col-sm-2 control-label">Cel</label>
+  						<div class="col-sm-4">
+  							<%= form.text_field :phone, id: :auditor_phone, class: 'form-control input-lg', id: 'field-2', placeholder: '# Empleado' %>
+  						</div>
+  					</div>
 
-  <div class="field">
-    <%= form.label :bitrthday %>
-    <%= form.date_select :bitrthday, id: :auditor_bitrthday %>
-  </div>
+            <div class="form-group">
+  					  <label for="field-1" class="col-sm-2 control-label form-field">Fecha</label>
+  						<div class="col-sm-4">
+							  <div class="input-group">
+							    <%= form.text_field :bitrthday, id: :auditor_bitrthday, class: 'form-control datepicker', "data-date-format" => 'yyyy-mm-dd' %>
+							    <div class="input-group-addon">
+								    <a href="#"><i class="entypo-calendar"></i></a>
+								  </div>
+							  </div>
+  						</div>
+  					</div>
 
-  <div class="field">
-    <%= form.label :phone %>
-    <%= form.text_area :phone, id: :auditor_phone %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  					<div class="post-save-changes">
+  						<div class="col-sm-offset-2 col-sm-2 actions update-button">
+							<%= button_tag(type: "submit", class: "btn btn-green btn-lg btn-block btn-icon") do %>
+							    <i class='entypo-check'></i>Enviar
+							<% end %>
+							
+  						</div>
+  					</div>
+  				</form>
+  			</div>
+  		</div>
+  	</div>
+  </div>  
 <% end %>
